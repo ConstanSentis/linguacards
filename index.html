@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#263b65">
+<title>LinguaCards · Aprende idiomas</title>
+<style>
+:root{--ink:#1d2940;--muted:#68758b;--blue:#3859a8;--blue2:#eaf0ff;--cream:#fffaf1;--paper:#fff;--line:#e6e9f0;--green:#21845b;--red:#b94a54;--gold:#f1b94b;--shadow:0 14px 40px #263b6514}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(145deg,#f2f5ff,#fffaf1 60%,#f3fbf6);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;min-height:100vh}
+button,select,input{font:inherit}button{cursor:pointer;border:0}button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #f1b94b;outline-offset:2px}
+.shell{max-width:1120px;margin:auto;padding:24px 20px 54px}.top{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:22px}.brand{display:flex;align-items:center;gap:12px}.logo{width:48px;height:48px;border-radius:16px;background:var(--blue);color:#fff;display:grid;place-items:center;font-size:25px;box-shadow:0 8px 18px #3859a833}.brand h1{font-size:25px;margin:0;letter-spacing:-.8px}.brand p{margin:2px 0 0;color:var(--muted);font-size:13px}.top-note{font-size:13px;color:var(--muted);background:#ffffffb8;padding:10px 14px;border:1px solid var(--line);border-radius:999px}
+.panel{background:#ffffffdc;border:1px solid #e8ebf2;border-radius:22px;box-shadow:var(--shadow);padding:20px;margin-bottom:18px}.settings{display:grid;grid-template-columns:1fr 1.25fr 1.65fr 1.4fr 1fr;gap:14px}.field label{display:block;font-size:12px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;margin:0 0 7px}.field select,.field input{width:100%;border:1px solid var(--line);background:#fff;border-radius:12px;padding:11px 12px;color:var(--ink)}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0}.tab{background:#fff;border:1px solid var(--line);color:var(--muted);padding:10px 16px;border-radius:999px;font-weight:750}.tab.active{background:var(--blue);color:#fff;border-color:var(--blue)}
+.layout{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(260px,.8fr);gap:18px;align-items:start}.main-card{min-height:450px;display:flex;flex-direction:column}.card-head{display:flex;justify-content:space-between;align-items:center;gap:12px;color:var(--muted);font-size:13px}.counter{font-variant-numeric:tabular-nums}.flash{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px 10px;min-height:280px}.emoji{font-size:66px;margin-bottom:12px;filter:drop-shadow(0 7px 8px #263b6518)}.word{font-size:clamp(34px,5vw,52px);font-weight:850;letter-spacing:-1.8px;margin:0 0 6px}.grammar{color:var(--blue);font-size:16px;font-weight:800;min-height:24px}.translation{font-size:22px;font-weight:750;margin:12px 0 5px}.example{font-size:15px;line-height:1.5;color:var(--muted);max-width:540px;margin:7px auto 0}.example strong{color:var(--ink)}.hidden{visibility:hidden}.card-actions{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:18px}.btn{padding:11px 16px;border-radius:12px;font-weight:800;transition:.15s transform,.15s filter}.btn:hover{transform:translateY(-1px);filter:brightness(.98)}.primary{background:var(--blue);color:#fff}.soft{background:var(--blue2);color:var(--blue)}.plain{background:#f2f4f8;color:var(--ink)}.good{background:#e8f7ef;color:var(--green)}.bad{background:#fff0f0;color:var(--red)}.small{font-size:13px;padding:8px 12px}.nav-row{display:flex;justify-content:space-between;gap:10px;margin-top:15px}.side h2{font-size:16px;margin:0 0 14px}.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px}.stat{background:#f7f8fc;border:1px solid var(--line);border-radius:15px;padding:13px}.stat b{display:block;font-size:24px;letter-spacing:-.6px}.stat span{font-size:12px;color:var(--muted)}.progress{height:9px;background:#edf0f6;border-radius:99px;overflow:hidden;margin:14px 0 7px}.progress>i{display:block;height:100%;width:0;background:linear-gradient(90deg,#3859a8,#61b58a);border-radius:99px;transition:width .25s}.muted{color:var(--muted);font-size:13px;line-height:1.5}.tip{background:#fff8e8;border:1px solid #f4e4bd;padding:13px;border-radius:14px;font-size:13px;line-height:1.5;margin-top:15px}.mode{display:none}.mode.active{display:block}.mode h2{margin:0 0 5px;font-size:21px}.mode-intro{color:var(--muted);margin:0 0 18px;font-size:14px}.practice-box{background:#f8f9fc;border:1px solid var(--line);border-radius:18px;padding:22px;text-align:center}.prompt{font-size:14px;color:var(--muted);font-weight:700}.question{font-size:30px;font-weight:850;margin:9px 0 18px}.answer-input{width:min(100%,420px);padding:13px 15px;border:1px solid #d8deea;border-radius:13px;background:#fff;text-align:center;font-size:18px}.feedback{min-height:26px;font-weight:750;margin:12px 0 0}.choices{display:grid;grid-template-columns:1fr 1fr;gap:10px;max-width:600px;margin:18px auto 0}.choice{background:#fff;border:1px solid var(--line);border-radius:13px;padding:14px;font-weight:750;color:var(--ink)}.choice:hover{border-color:var(--blue);background:var(--blue2)}.speak-actions{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:16px}.pill{display:inline-block;padding:5px 9px;border-radius:999px;background:#edf2ff;color:var(--blue);font-size:12px;font-weight:800}.footer{color:var(--muted);font-size:12px;text-align:center;margin-top:22px}.empty{padding:30px;text-align:center;color:var(--muted)}.hidden-section{display:none!important}.import-panel{display:flex;align-items:center;justify-content:space-between;gap:18px}.import-copy{display:flex;flex-direction:column;gap:5px}.import-copy span{font-size:13px;color:var(--muted);line-height:1.45}.import-actions{display:flex;align-items:center;gap:12px;flex-wrap:wrap}.import-actions .muted{max-width:360px}@media(max-width:650px){.import-panel{align-items:flex-start;flex-direction:column}.import-actions{align-items:flex-start;flex-direction:column}}
+@media(max-width:800px){.settings{grid-template-columns:1fr 1fr}.layout{grid-template-columns:1fr}.side{order:2}.main-card{min-height:410px}}
+@media(max-width:480px){.shell{padding:16px 12px 35px}.top{align-items:flex-start}.top-note{display:none}.panel{padding:16px;border-radius:18px}.settings{grid-template-columns:1fr 1fr}.word{font-size:38px}.choices{grid-template-columns:1fr}.nav-row .btn{flex:1}.brand h1{font-size:22px}}
+.btn:disabled{opacity:.55;cursor:default;transform:none}
+kbd{display:inline-block;min-width:22px;padding:2px 6px;border:1px solid #cfd6e4;border-bottom-width:2px;border-radius:6px;background:#fff;color:var(--ink);font:700 11px/1.4 ui-monospace,SFMono-Regular,Menlo,monospace;text-align:center}
+.keys{margin-top:15px;border:1px solid var(--line);border-radius:14px;background:#f7f8fc;padding:12px 13px}.keys summary{cursor:pointer;font-weight:800;font-size:13px}.keys h3{margin:12px 0 6px;font-size:12px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted)}.keys p{margin:5px 0;font-size:13px;line-height:1.6;color:var(--ink)}
+@media(hover:none){.keys{display:none}}
+</style>
+</head>
+<body>
+<div class="shell">
+  <header class="top">
+    <div class="brand"><div class="logo">✦</div><div><h1>LinguaCards</h1><p>Un poco cada día. Mucho más de lo que parece.</p></div></div>
+    <div class="top-note">📚 Aprende · Practica · Avanza</div>
+  </header>
+
+  <section class="panel settings" aria-label="Configuración">
+    <div class="field"><label for="language">Idioma</label><select id="language"><option value="de">🇩🇪 Alemán</option><option value="en">🇬🇧 Inglés</option><option value="it">🇮🇹 Italiano</option></select></div>
+    <div class="field"><label for="level">Nivel MCER</label><select id="level"><option value="B1">B1 · Intermedio</option><option value="B2">B2 · Intermedio alto</option><option value="C1">C1 · Avanzado</option><option value="all">Todos los niveles</option></select></div>
+    <div class="field"><label for="direction">Dirección</label><select id="direction"><option value="direct">Directa · Idioma → español</option><option value="inverse">Inversa · Español → idioma</option></select></div>
+    <div class="field"><label for="topic">Tema</label><select id="topic"><option value="all">Todos los temas</option></select></div>
+    <div class="field"><label for="learner">Mi nombre</label><input id="learner" maxlength="24" placeholder="Opcional"></div>
+  </section>
+
+  <section class="panel import-panel" aria-label="Importar y exportar vocabulario">
+    <div class="import-copy">
+      <strong>📚 Gestionar todo el vocabulario con CSV</strong>
+      <span>Exporta todas tus tarjetas, edita el CSV (añade, cambia o elimina filas) y vuelve a importarlo. La importación sustituye el vocabulario completo.</span>
+      <span>Columnas: lang, category, level, word, grammar, es, emoji, ex, exEs. Idiomas: de, en, it. Niveles: B1, B2, C1.</span>
+    </div>
+    <div class="import-actions">
+      <button class="btn soft" id="exportCsv" type="button">⬇️ Exportar CSV</button>
+      <input id="importFile" type="file" accept=".csv,text/csv,.txt,text/plain" hidden>
+      <button class="btn primary" id="importCsv" type="button">⬆️ Importar CSV</button>
+      <span id="importStatus" class="muted" role="status">El archivo inicial contiene todas las tarjetas incluidas en esta versión.</span>
+    </div>
+  </section>
+
+  <nav class="tabs" aria-label="Modos de práctica">
+    <button class="tab active" data-mode="cards">🃏 Tarjetas</button>
+    <button class="tab" data-mode="reading">👀 Lectura</button>
+    <button class="tab" data-mode="writing">✍️ Escritura</button>
+    <button class="tab" data-mode="speaking">🗣️ Oral</button>
+  </nav>
+
+  <div class="layout">
+    <main class="panel main-card">
+      <section id="cards" class="mode active">
+        <div class="card-head"><span class="pill" id="topicPill">Vocabulario temático</span><span class="counter" id="counter">1 / 1</span></div>
+        <div class="flash">
+          <div class="emoji" id="emoji">🍎</div>
+          <p class="word" id="word">der Apfel</p>
+          <div class="grammar" id="grammar">Plural: die Äpfel</div>
+          <div id="translationArea" class="hidden">
+            <div class="translation" id="translation">la manzana</div>
+            <p class="example" id="example">Ich esse einen Apfel. <strong>Como una manzana.</strong></p>
+          </div>
+        </div>
+        <div class="card-actions">
+          <button class="btn soft" id="listenCard">🔊 Escuchar</button>
+          <button class="btn primary" id="reveal">Mostrar significado</button>
+        </div>
+        <div class="card-actions" id="rateActions" style="display:none">
+          <button class="btn good" id="known">✓ La sé</button>
+          <button class="btn bad" id="review">↻ Repasar</button>
+        </div>
+        <div class="nav-row"><button class="btn plain" id="prev">← Anterior</button><button class="btn plain" id="next">Siguiente →</button></div>
+      </section>
+
+      <section id="reading" class="mode">
+        <h2>👀 Comprensión y lectura</h2><p class="mode-intro">Lee la palabra o frase y elige su significado.</p>
+        <div class="practice-box"><div class="prompt">¿Qué significa?</div><div class="question" id="readQuestion">der Apfel</div><div class="choices" id="readChoices"></div><div class="feedback" id="readFeedback" aria-live="polite"></div><button class="btn primary" id="readNext">Siguiente pregunta</button></div>
+      </section>
+
+      <section id="writing" class="mode">
+        <h2>✍️ Escribe la traducción</h2><p class="mode-intro" id="writingIntro">Traduce la palabra o frase según la dirección que hayas elegido.</p>
+        <div class="practice-box"><div class="prompt">Traduce al español</div><div class="question" id="writeQuestion">der Apfel</div><input class="answer-input" id="writeAnswer" autocomplete="off" placeholder="Escribe aquí…"><div><button class="btn primary" id="checkWrite" style="margin-top:12px">Comprobar</button></div><div class="feedback" id="writeFeedback" aria-live="polite"></div><button class="btn soft" id="writeNext">Otra palabra</button></div>
+      </section>
+
+      <section id="speaking" class="mode">
+        <h2>🗣️ Escucha y habla</h2><p class="mode-intro">Escucha el modelo y repite la palabra o frase. Tienes 5 segundos para empezar a hablar: si no lo haces, cuenta como fallo. Después verás la respuesta durante 2 segundos y pasarás a la siguiente.</p>
+        <div class="practice-box"><div class="prompt">Di en voz alta</div><div class="question" id="speakQuestion">der Apfel</div><div class="speak-actions"><button class="btn soft" id="speakListen">🔊 Escuchar modelo</button><button class="btn primary" id="speakRecord">🎙️ Hablar ahora</button></div><div class="feedback" id="speakFeedback" aria-live="polite">Pulsa «Hablar ahora» y acepta el permiso del micrófono.</div><p class="muted" id="transcript"></p><button class="btn plain" id="speakNext">Siguiente</button></div>
+      </section>
+    </main>
+
+    <aside class="panel side">
+      <h2>Tu progreso</h2>
+      <div class="stats">
+        <div class="stat"><b id="seenStat">0</b><span>Tarjetas vistas</span></div>
+        <div class="stat"><b id="knownStat">0</b><span>Palabras aprendidas</span></div>
+        <div class="stat"><b id="scoreStat">0%</b><span>Aciertos en ejercicios</span></div>
+        <div class="stat"><b id="streakStat">0</b><span>Respuestas correctas</span></div>
+      </div>
+      <div class="progress"><i id="progressBar"></i></div><p class="muted" id="progressText">Empieza por una tarjeta.</p>
+      <div class="tip"><strong>💡 Consejo</strong><br>Prueba a decir cada palabra en voz alta y crea una frase propia. Recordamos mejor lo que usamos.</div>
+      <p class="muted" style="margin-top:15px">El progreso se guarda en este navegador y en este dispositivo.</p>
+      <button class="btn plain small" id="resetProgress">Reiniciar progreso</button>
+      <details class="keys" open><summary>⌨️ Atajos de teclado</summary>
+        <h3>En cualquier modo</h3>
+        <p><kbd>Shift</kbd>+<kbd>1</kbd> a <kbd>4</kbd> Tarjetas · Lectura · Escritura · Oral</p>
+        <h3>Tarjetas</h3>
+        <p><kbd>Espacio</kbd> mostrar / ocultar significado</p>
+        <p><kbd>←</kbd> <kbd>→</kbd> anterior / siguiente</p>
+        <p><kbd>S</kbd> o <kbd>↑</kbd> La sé · <kbd>R</kbd> o <kbd>↓</kbd> Repasar</p>
+        <p><kbd>L</kbd> escuchar</p>
+        <h3>Lectura</h3>
+        <p><kbd>1</kbd> a <kbd>4</kbd> elegir respuesta · <kbd>Espacio</kbd> siguiente</p>
+        <h3>Escritura</h3>
+        <p><kbd>Enter</kbd> comprobar y, después, siguiente · <kbd>Esc</kbd> salir del campo</p>
+        <h3>Oral</h3>
+        <p><kbd>Espacio</kbd> hablar ahora · <kbd>L</kbd> escuchar modelo</p>
+        <p><kbd>→</kbd> siguiente · <kbd>Esc</kbd> cancelar escucha</p>
+      </details>
+    </aside>
+  </div>
+  <p class="footer">LinguaCards · Versión 6 · Gestión de vocabulario personal</p>
+</div>
+<script>
+let vocab = [
+ // Alemán
+ {lang:"de",topic:"food",level:"B1",word:"der Apfel",grammar:"Plural: die Äpfel",es:"la manzana",emoji:"🍎",ex:"Ich esse einen Apfel.",exEs:"Como una manzana."},
+ {lang:"de",topic:"food",level:"B1",word:"das Brot",grammar:"Plural: die Brote",es:"el pan",emoji:"🍞",ex:"Das Brot ist frisch.",exEs:"El pan está fresco."},
+ {lang:"de",topic:"food",level:"B1",word:"das Wasser",grammar:"Normalmente sin plural",es:"el agua",emoji:"💧",ex:"Ich trinke Wasser.",exEs:"Bebo agua."},
+ {lang:"de",topic:"food",level:"B2",word:"das Gemüse",grammar:"Nombre colectivo",es:"las verduras",emoji:"🥦",ex:"Wir kaufen frisches Gemüse.",exEs:"Compramos verduras frescas."},
+ {lang:"de",topic:"travel",level:"B1",word:"der Bahnhof",grammar:"Plural: die Bahnhöfe",es:"la estación de tren",emoji:"🚉",ex:"Wo ist der Bahnhof?",exEs:"¿Dónde está la estación de tren?"},
+ {lang:"de",topic:"travel",level:"B2",word:"die Fahrkarte",grammar:"Plural: die Fahrkarten",es:"el billete de transporte",emoji:"🎫",ex:"Ich möchte eine Fahrkarte nach Berlin.",exEs:"Quisiera un billete a Berlín."},
+ {lang:"de",topic:"home",level:"B1",word:"das Fenster",grammar:"Plural: die Fenster",es:"la ventana",emoji:"🪟",ex:"Das Fenster ist offen.",exEs:"La ventana está abierta."},
+ {lang:"de",topic:"home",level:"B1",word:"die Küche",grammar:"Plural: die Küchen",es:"la cocina",emoji:"🍳",ex:"Die Küche ist sehr hell.",exEs:"La cocina es muy luminosa."},
+ {lang:"de",topic:"daily",level:"B1",word:"aufstehen",grammar:"Verbo separable: ich stehe auf",es:"levantarse",emoji:"⏰",ex:"Ich stehe um sieben Uhr auf.",exEs:"Me levanto a las siete."},
+ {lang:"de",topic:"daily",level:"B2",word:"sich beeilen",grammar:"Verbo reflexivo",es:"darse prisa",emoji:"🏃",ex:"Wir müssen uns beeilen.",exEs:"Tenemos que darnos prisa."},
+ {lang:"de",topic:"nature",level:"B1",word:"der Baum",grammar:"Plural: die Bäume",es:"el árbol",emoji:"🌳",ex:"Der Baum ist sehr alt.",exEs:"El árbol es muy viejo."},
+ {lang:"de",topic:"people",level:"B1",word:"die Geschwister",grammar:"Plural: forma plural",es:"los hermanos",emoji:"👨‍👩‍👧",ex:"Meine Geschwister wohnen in Wien.",exEs:"Mis hermanos viven en Viena."},
+ // Inglés
+ {lang:"en",topic:"food",level:"B1",word:"apple",grammar:"Plural: apples",es:"la manzana",emoji:"🍎",ex:"I eat an apple every day.",exEs:"Como una manzana todos los días."},
+ {lang:"en",topic:"food",level:"B1",word:"bread",grammar:"Nombre incontable",es:"el pan",emoji:"🍞",ex:"Would you like some bread?",exEs:"¿Te apetece un poco de pan?"},
+ {lang:"en",topic:"food",level:"B1",word:"water",grammar:"Nombre incontable",es:"el agua",emoji:"💧",ex:"Could I have a glass of water?",exEs:"¿Podría tomar un vaso de agua?"},
+ {lang:"en",topic:"food",level:"B2",word:"ingredients",grammar:"Singular: ingredient",es:"los ingredientes",emoji:"🥕",ex:"We need fresh ingredients.",exEs:"Necesitamos ingredientes frescos."},
+ {lang:"en",topic:"travel",level:"B1",word:"train station",grammar:"Expresión compuesta",es:"la estación de tren",emoji:"🚉",ex:"How can I get to the train station?",exEs:"¿Cómo puedo llegar a la estación de tren?"},
+ {lang:"en",topic:"travel",level:"B2",word:"boarding pass",grammar:"Expresión compuesta",es:"la tarjeta de embarque",emoji:"🎫",ex:"Please have your boarding pass ready.",exEs:"Por favor, ten preparada tu tarjeta de embarque."},
+ {lang:"en",topic:"home",level:"B1",word:"window",grammar:"Plural: windows",es:"la ventana",emoji:"🪟",ex:"Please open the window.",exEs:"Por favor, abre la ventana."},
+ {lang:"en",topic:"home",level:"B1",word:"kitchen",grammar:"Plural: kitchens",es:"la cocina",emoji:"🍳",ex:"The kitchen is next to the living room.",exEs:"La cocina está al lado del salón."},
+ {lang:"en",topic:"daily",level:"B1",word:"to get up",grammar:"Phrasal verb",es:"levantarse",emoji:"⏰",ex:"I usually get up at seven.",exEs:"Normalmente me levanto a las siete."},
+ {lang:"en",topic:"daily",level:"B2",word:"to hurry up",grammar:"Phrasal verb",es:"darse prisa",emoji:"🏃",ex:"We need to hurry up.",exEs:"Tenemos que darnos prisa."},
+ {lang:"en",topic:"nature",level:"B1",word:"tree",grammar:"Plural: trees",es:"el árbol",emoji:"🌳",ex:"There is a tree in the garden.",exEs:"Hay un árbol en el jardín."},
+ {lang:"en",topic:"people",level:"B1",word:"siblings",grammar:"Singular: sibling",es:"los hermanos",emoji:"👨‍👩‍👧",ex:"My siblings live abroad.",exEs:"Mis hermanos viven en el extranjero."},
+ // Italiano
+ {lang:"it",topic:"food",level:"B1",word:"la mela",grammar:"Plurale: le mele",es:"la manzana",emoji:"🍎",ex:"Mangio una mela ogni giorno.",exEs:"Como una manzana todos los días."},
+ {lang:"it",topic:"food",level:"B1",word:"il pane",grammar:"Plurale: i pani (según el contexto)",es:"el pan",emoji:"🍞",ex:"Vorrei del pane, per favore.",exEs:"Quisiera pan, por favor."},
+ {lang:"it",topic:"food",level:"B1",word:"l'acqua",grammar:"Nombre femenino",es:"el agua",emoji:"💧",ex:"Bevo un bicchiere d'acqua.",exEs:"Bebo un vaso de agua."},
+ {lang:"it",topic:"food",level:"B2",word:"gli ingredienti",grammar:"Singular: l'ingrediente",es:"los ingredientes",emoji:"🥕",ex:"Servono ingredienti freschi.",exEs:"Se necesitan ingredientes frescos."},
+ {lang:"it",topic:"travel",level:"B1",word:"la stazione",grammar:"Plurale: le stazioni",es:"la estación",emoji:"🚉",ex:"Dov'è la stazione?",exEs:"¿Dónde está la estación?"},
+ {lang:"it",topic:"travel",level:"B2",word:"la carta d'imbarco",grammar:"Plurale: le carte d'imbarco",es:"la tarjeta de embarque",emoji:"🎫",ex:"Ecco la mia carta d'imbarco.",exEs:"Aquí está mi tarjeta de embarque."},
+ {lang:"it",topic:"home",level:"B1",word:"la finestra",grammar:"Plurale: le finestre",es:"la ventana",emoji:"🪟",ex:"La finestra è aperta.",exEs:"La ventana está abierta."},
+ {lang:"it",topic:"home",level:"B1",word:"la cucina",grammar:"Plurale: le cucine",es:"la cocina",emoji:"🍳",ex:"La cucina è luminosa.",exEs:"La cocina es luminosa."},
+ {lang:"it",topic:"daily",level:"B1",word:"svegliarsi",grammar:"Verbo riflessivo",es:"despertarse",emoji:"⏰",ex:"Mi sveglio alle sette.",exEs:"Me despierto a las siete."},
+ {lang:"it",topic:"daily",level:"B2",word:"sbrigarsi",grammar:"Verbo pronominal",es:"darse prisa",emoji:"🏃",ex:"Dobbiamo sbrigarci.",exEs:"Tenemos que darnos prisa."},
+ {lang:"it",topic:"nature",level:"B1",word:"l'albero",grammar:"Plurale: gli alberi",es:"el árbol",emoji:"🌳",ex:"L'albero è molto alto.",exEs:"El árbol es muy alto."},
+ {lang:"it",topic:"people",level:"B1",word:"i fratelli",grammar:"Singular: il fratello / la sorella",es:"los hermanos",emoji:"👨‍👩‍👧",ex:"I miei fratelli abitano a Roma.",exEs:"Mis hermanos viven en Roma."},
+ {lang:"de",topic:"daily",level:"C1",word:"etwas in Betracht ziehen",grammar:"Expresión verbal",es:"considerar algo",emoji:"💭",ex:"Wir sollten alle Möglichkeiten in Betracht ziehen.",exEs:"Deberíamos considerar todas las posibilidades."},
+ {lang:"de",topic:"travel",level:"C1",word:"die Unterkunft",grammar:"Plural: die Unterkünfte",es:"el alojamiento",emoji:"🏨",ex:"Die Unterkunft liegt in unmittelbarer Nähe des Bahnhofs.",exEs:"El alojamiento está muy cerca de la estación."},
+ {lang:"de",topic:"nature",level:"C1",word:"die Artenvielfalt",grammar:"Nombre femenino",es:"la biodiversidad",emoji:"🦋",ex:"Der Schutz der Artenvielfalt ist von großer Bedeutung.",exEs:"La protección de la biodiversidad es de gran importancia."},
+ {lang:"de",topic:"people",level:"C1",word:"die Herausforderung",grammar:"Plural: die Herausforderungen",es:"el desafío, el reto",emoji:"🎯",ex:"Diese Herausforderung erfordert eine langfristige Strategie.",exEs:"Este reto requiere una estrategia a largo plazo."},
+ {lang:"en",topic:"daily",level:"C1",word:"to take something into account",grammar:"Expresión verbal",es:"tener algo en cuenta",emoji:"💭",ex:"We need to take all the evidence into account.",exEs:"Tenemos que tener en cuenta todas las pruebas."},
+ {lang:"en",topic:"travel",level:"C1",word:"accommodation",grammar:"Nombre incontable",es:"el alojamiento",emoji:"🏨",ex:"The accommodation is within walking distance of the centre.",exEs:"El alojamiento está a poca distancia a pie del centro."},
+ {lang:"en",topic:"nature",level:"C1",word:"biodiversity",grammar:"Nombre incontable",es:"la biodiversidad",emoji:"🦋",ex:"Biodiversity is essential for healthy ecosystems.",exEs:"La biodiversidad es esencial para unos ecosistemas saludables."},
+ {lang:"en",topic:"people",level:"C1",word:"drawback",grammar:"Plural: drawbacks",es:"el inconveniente",emoji:"⚖️",ex:"One major drawback is the lack of reliable information.",exEs:"Un inconveniente importante es la falta de información fiable."},
+ {lang:"it",topic:"daily",level:"C1",word:"tenere conto di",grammar:"Locuzione verbale",es:"tener en cuenta",emoji:"💭",ex:"Dobbiamo tenere conto di tutti i fattori.",exEs:"Debemos tener en cuenta todos los factores."},
+ {lang:"it",topic:"travel",level:"C1",word:"la sistemazione",grammar:"Plurale: le sistemazioni",es:"el alojamiento",emoji:"🏨",ex:"La sistemazione si trova a pochi passi dal centro.",exEs:"El alojamiento está a pocos pasos del centro."},
+ {lang:"it",topic:"nature",level:"C1",word:"la biodiversità",grammar:"Nome femminile",es:"la biodiversidad",emoji:"🦋",ex:"La biodiversità è fondamentale per l'equilibrio naturale.",exEs:"La biodiversidad es fundamental para el equilibrio natural."},
+ {lang:"it",topic:"people",level:"C1",word:"la sfida",grammar:"Plurale: le sfide",es:"el desafío, el reto",emoji:"🎯",ex:"Affrontare questa sfida richiede pazienza e impegno.",exEs:"Afrontar este reto requiere paciencia y esfuerzo."},
+ // Alemán B1 ampliado (40 tarjetas)
+ {lang:"de",topic:"daily",level:"B1",word:"sich entscheiden",grammar:"Verbo reflexivo",es:"decidirse",emoji:"🧭",ex:"Ich muss mich heute entscheiden.",exEs:"Tengo que decidirme hoy."},
+ {lang:"de",topic:"daily",level:"B1",word:"teilnehmen an",grammar:"Verbo con preposición + dativo",es:"participar en",emoji:"🤝",ex:"Viele Schüler nehmen an dem Wettbewerb teil.",exEs:"Muchos alumnos participan en el concurso."},
+ {lang:"de",topic:"daily",level:"B1",word:"sich erinnern an",grammar:"Verbo reflexivo + acusativo",es:"acordarse de",emoji:"🧠",ex:"Ich erinnere mich gern an meine Kindheit.",exEs:"Me acuerdo con cariño de mi infancia."},
+ {lang:"de",topic:"daily",level:"B1",word:"sich interessieren für",grammar:"Verbo reflexivo + acusativo",es:"interesarse por",emoji:"🔎",ex:"Sie interessiert sich für fremde Sprachen.",exEs:"Se interesa por las lenguas extranjeras."},
+ {lang:"de",topic:"daily",level:"B1",word:"sich kümmern um",grammar:"Verbo reflexivo + acusativo",es:"ocuparse de",emoji:"🫶",ex:"Er kümmert sich um seine Großeltern.",exEs:"Se ocupa de sus abuelos."},
+ {lang:"de",topic:"daily",level:"B1",word:"sich freuen auf",grammar:"Verbo reflexivo + acusativo",es:"tener ganas de",emoji:"😊",ex:"Wir freuen uns auf die Ferien.",exEs:"Tenemos muchas ganas de las vacaciones."},
+ {lang:"de",topic:"daily",level:"B1",word:"sich freuen über",grammar:"Verbo reflexivo + acusativo",es:"alegrarse de",emoji:"🎉",ex:"Ich freue mich über deine Nachricht.",exEs:"Me alegro de tu mensaje."},
+ {lang:"de",topic:"daily",level:"B1",word:"vorschlagen",grammar:"Verbo irregular: schlägt vor",es:"proponer",emoji:"💡",ex:"Ich schlage vor, früher anzufangen.",exEs:"Propongo empezar más temprano."},
+ {lang:"de",topic:"daily",level:"B1",word:"vermeiden",grammar:"Verbo irregular: vermied, hat vermieden",es:"evitar",emoji:"🚫",ex:"Man sollte unnötigen Stress vermeiden.",exEs:"Se debería evitar el estrés innecesario."},
+ {lang:"de",topic:"daily",level:"B1",word:"erreichen",grammar:"Verbo regular",es:"alcanzar, conseguir",emoji:"🎯",ex:"Mit Geduld kann man viel erreichen.",exEs:"Con paciencia se pueden conseguir muchas cosas."},
+ {lang:"de",topic:"daily",level:"B1",word:"erlauben",grammar:"Verbo regular",es:"permitir",emoji:"✅",ex:"Meine Eltern erlauben mir, allein zu reisen.",exEs:"Mis padres me permiten viajar solo."},
+ {lang:"de",topic:"daily",level:"B1",word:"benötigen",grammar:"Verbo regular, más formal que brauchen",es:"necesitar",emoji:"📌",ex:"Für die Anmeldung benötigen Sie einen Ausweis.",exEs:"Para la inscripción necesita un documento de identidad."},
+ {lang:"de",topic:"daily",level:"B1",word:"vereinbaren",grammar:"Verbo separable: vereinbart",es:"acordar, concertar",emoji:"📅",ex:"Wir müssen einen neuen Termin vereinbaren.",exEs:"Tenemos que concertar una nueva cita."},
+ {lang:"de",topic:"daily",level:"B1",word:"absagen",grammar:"Verbo separable: sagt ab",es:"cancelar",emoji:"❌",ex:"Wegen des Wetters müssen wir das Treffen absagen.",exEs:"Por el tiempo tenemos que cancelar el encuentro."},
+ {lang:"de",topic:"daily",level:"B1",word:"verschieben",grammar:"Verbo irregular: verschob, hat verschoben",es:"aplazar",emoji:"⏳",ex:"Können wir den Termin auf Freitag verschieben?",exEs:"¿Podemos aplazar la cita al viernes?"},
+ {lang:"de",topic:"daily",level:"B1",word:"sich beschweren",grammar:"Verbo reflexivo + über",es:"quejarse",emoji:"📣",ex:"Der Kunde beschwert sich über den schlechten Service.",exEs:"El cliente se queja del mal servicio."},
+ {lang:"de",topic:"daily",level:"B1",word:"die Erfahrung",grammar:"Plural: die Erfahrungen",es:"la experiencia",emoji:"🧩",ex:"Diese Erfahrung hat mir viel beigebracht.",exEs:"Esta experiencia me ha enseñado mucho."},
+ {lang:"de",topic:"daily",level:"B1",word:"die Meinung",grammar:"Plural: die Meinungen",es:"la opinión",emoji:"💬",ex:"Meiner Meinung nach ist das eine gute Lösung.",exEs:"En mi opinión, esa es una buena solución."},
+ {lang:"de",topic:"daily",level:"B1",word:"die Möglichkeit",grammar:"Plural: die Möglichkeiten",es:"la posibilidad",emoji:"🚪",ex:"Gibt es eine Möglichkeit, online zu bezahlen?",exEs:"¿Existe la posibilidad de pagar por internet?"},
+ {lang:"de",topic:"daily",level:"B1",word:"die Entscheidung",grammar:"Plural: die Entscheidungen",es:"la decisión",emoji:"⚖️",ex:"Das war keine leichte Entscheidung.",exEs:"No fue una decisión fácil."},
+ {lang:"de",topic:"daily",level:"B1",word:"die Einladung",grammar:"Plural: die Einladungen",es:"la invitación",emoji:"✉️",ex:"Vielen Dank für die Einladung zum Abendessen.",exEs:"Muchas gracias por la invitación a cenar."},
+ {lang:"de",topic:"daily",level:"B1",word:"die Nachricht",grammar:"Plural: die Nachrichten",es:"el mensaje, la noticia",emoji:"📩",ex:"Ich habe gestern eine wichtige Nachricht bekommen.",exEs:"Ayer recibí un mensaje importante."},
+ {lang:"de",topic:"daily",level:"B1",word:"die Beziehung",grammar:"Plural: die Beziehungen",es:"la relación",emoji:"❤️",ex:"Eine gute Beziehung braucht Vertrauen.",exEs:"Una buena relación necesita confianza."},
+ {lang:"de",topic:"daily",level:"B1",word:"die Umgebung",grammar:"Plural: die Umgebungen",es:"el entorno, los alrededores",emoji:"🏞️",ex:"Die Umgebung des Hotels ist sehr ruhig.",exEs:"Los alrededores del hotel son muy tranquilos."},
+ {lang:"de",topic:"daily",level:"B1",word:"die Gelegenheit",grammar:"Plural: die Gelegenheiten",es:"la ocasión, la oportunidad",emoji:"🌟",ex:"Ich hatte leider keine Gelegenheit, ihn zu treffen.",exEs:"Lamentablemente no tuve ocasión de verlo."},
+ {lang:"de",topic:"daily",level:"B1",word:"der Unterschied",grammar:"Plural: die Unterschiede",es:"la diferencia",emoji:"↔️",ex:"Was ist der Unterschied zwischen diesen Wörtern?",exEs:"¿Cuál es la diferencia entre estas palabras?"},
+ {lang:"de",topic:"daily",level:"B1",word:"der Vorteil",grammar:"Plural: die Vorteile",es:"la ventaja",emoji:"👍",ex:"Ein großer Vorteil ist die flexible Arbeitszeit.",exEs:"Una gran ventaja es el horario flexible."},
+ {lang:"de",topic:"daily",level:"B1",word:"der Nachteil",grammar:"Plural: die Nachteile",es:"la desventaja",emoji:"👎",ex:"Der einzige Nachteil ist der hohe Preis.",exEs:"La única desventaja es el precio elevado."},
+ {lang:"de",topic:"daily",level:"B1",word:"die Lösung",grammar:"Plural: die Lösungen",es:"la solución",emoji:"🧩",ex:"Wir müssen gemeinsam eine Lösung finden.",exEs:"Tenemos que encontrar una solución juntos."},
+ {lang:"de",topic:"daily",level:"B1",word:"das Verhalten",grammar:"Normalmente singular",es:"el comportamiento",emoji:"🧍",ex:"Sein Verhalten war sehr freundlich.",exEs:"Su comportamiento fue muy amable."},
+ {lang:"de",topic:"daily",level:"B1",word:"die Gesundheit",grammar:"Normalmente singular",es:"la salud",emoji:"❤️‍🩹",ex:"Regelmäßige Bewegung ist gut für die Gesundheit.",exEs:"El ejercicio regular es bueno para la salud."},
+ {lang:"de",topic:"daily",level:"B1",word:"die Bewegung",grammar:"Plural: die Bewegungen",es:"el movimiento, la actividad física",emoji:"🚶",ex:"Bewegung an der frischen Luft tut gut.",exEs:"Hacer ejercicio al aire libre sienta bien."},
+ {lang:"de",topic:"daily",level:"B1",word:"die Ernährung",grammar:"Normalmente singular",es:"la alimentación",emoji:"🥗",ex:"Eine ausgewogene Ernährung ist wichtig.",exEs:"Una alimentación equilibrada es importante."},
+ {lang:"de",topic:"daily",level:"B1",word:"die Verantwortung",grammar:"Normalmente singular",es:"la responsabilidad",emoji:"🛡️",ex:"Jeder trägt Verantwortung für sein Handeln.",exEs:"Cada uno es responsable de sus actos."},
+ {lang:"de",topic:"daily",level:"B1",word:"zuverlässig",grammar:"Adjetivo",es:"fiable",emoji:"🤝",ex:"Sie ist sehr zuverlässig und kommt immer pünktlich.",exEs:"Es muy fiable y siempre llega puntual."},
+ {lang:"de",topic:"daily",level:"B1",word:"notwendig",grammar:"Adjetivo",es:"necesario",emoji:"📝",ex:"Für diese Arbeit sind gute Sprachkenntnisse notwendig.",exEs:"Para este trabajo son necesarios buenos conocimientos de idiomas."},
+ {lang:"de",topic:"daily",level:"B1",word:"unterschiedlich",grammar:"Adjetivo",es:"diferente, diverso",emoji:"🎨",ex:"Die beiden Angebote sind sehr unterschiedlich.",exEs:"Las dos ofertas son muy diferentes."},
+ {lang:"de",topic:"daily",level:"B1",word:"wahrscheinlich",grammar:"Adverbio / adjetivo",es:"probablemente",emoji:"🔮",ex:"Wahrscheinlich regnet es morgen.",exEs:"Probablemente mañana llueva."},
+ {lang:"de",topic:"daily",level:"B1",word:"trotzdem",grammar:"Adverbio conectivo",es:"a pesar de ello, sin embargo",emoji:"↪️",ex:"Es war kalt. Trotzdem sind wir spazieren gegangen.",exEs:"Hacía frío. A pesar de ello, fuimos a pasear."},
+ {lang:"de",topic:"daily",level:"B1",word:"inzwischen",grammar:"Adverbio",es:"mientras tanto, entretanto",emoji:"⌛",ex:"Inzwischen hat sich die Situation verbessert.",exEs:"Mientras tanto, la situación ha mejorado."},
+
+];
+const MASTER_KEY="linguacards_vocab_master_v1";
+const LEGACY_PERSONAL_KEY="linguacards_personal_txt_v1";
+function loadVocabulary(){
+  try{
+    const master=JSON.parse(localStorage.getItem(MASTER_KEY)||"null");
+    if(Array.isArray(master)){vocab=master;return}
+    const legacy=JSON.parse(localStorage.getItem(LEGACY_PERSONAL_KEY)||"[]");
+    if(Array.isArray(legacy)){
+      const seen=new Set(vocab.map(v=>(v.lang+"|"+v.word).toLocaleLowerCase()));
+      legacy.forEach(v=>{if(v&&v.lang&&v.word&&v.es&&!seen.has((v.lang+"|"+v.word).toLocaleLowerCase())){vocab.push(v);seen.add((v.lang+"|"+v.word).toLocaleLowerCase())}});
+    }
+    localStorage.setItem(MASTER_KEY,JSON.stringify(vocab));
+  }catch(e){console.warn("No se pudo cargar el vocabulario guardado",e)}
+}
+loadVocabulary();
+function persistVocabulary(){localStorage.setItem(MASTER_KEY,JSON.stringify(vocab))}
+function csvEscape(value){const s=String(value??"");return /[",\r\n]/.test(s)?'"'+s.replace(/"/g,'""')+'"':s}
+function exportVocabularyCsv(){
+  const fields=["lang","category","level","word","grammar","es","emoji","ex","exEs"];
+  const rows=[fields.join(",")];
+  vocab.forEach(v=>rows.push(fields.map(k=>csvEscape(k==="category"?(v.category||v.topic||"general"):v[k])).join(",")));
+  const blob=new Blob(["\uFEFF"+rows.join("\r\n")],{type:"text/csv;charset=utf-8"});
+  const url=URL.createObjectURL(blob),a=document.createElement("a");
+  a.href=url;a.download="LinguaCards_vocabulario.csv";document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);
+  $("importStatus").textContent="Exportación preparada: "+vocab.length+" tarjetas.";
+}
+function parseCsv(text){
+  text=String(text||"").replace(/^\uFEFF/,"");
+  const first=(text.split(/\r?\n/,1)[0]||"");
+  const delimiters=[",",";","\t"];
+  const delimiter=delimiters.sort((a,b)=>first.split(b).length-first.split(a).length)[0];
+  const rows=[];let row=[],cell="",quoted=false;
+  for(let i=0;i<text.length;i++){
+    const c=text[i];
+    if(quoted){if(c==='"'&&text[i+1]==='"'){cell+='"';i++}else if(c==='"'){quoted=false}else cell+=c}
+    else if(c==='"')quoted=true;
+    else if(c===delimiter){row.push(cell);cell=""}
+    else if(c==="\n"){row.push(cell.replace(/\r$/, ""));if(row.some(x=>x.trim()))rows.push(row);row=[];cell=""}
+    else cell+=c;
+  }
+  row.push(cell.replace(/\r$/, ""));if(row.some(x=>x.trim()))rows.push(row);
+  if(!rows.length)return [];
+  const headers=rows.shift().map(x=>x.trim().toLowerCase());
+  return rows.map(r=>Object.fromEntries(headers.map((key,i)=>[key,(r[i]??"").trim()])));
+}
+function importCsvFile(file){
+  const reader=new FileReader();
+  reader.onload=()=>{
+    try{
+      const parsed=parseCsv(reader.result),imported=[],seen=new Set();let invalid=0,duplicates=0;
+      parsed.forEach(r=>{
+        const lang=(r.lang||"").toLowerCase();
+        const category=(r.category||r.topic||"general").toLowerCase().replace(/\s+/g,"_");
+        const level=(r.level||"").toUpperCase(),word=r.word||"",es=r.es||"";
+        if(!["de","en","it"].includes(lang)||!["B1","B2","C1"].includes(level)||!word||!es){invalid++;return}
+        const unique=(lang+"|"+word).toLocaleLowerCase();
+        if(seen.has(unique)){duplicates++;return}seen.add(unique);
+        imported.push({lang,topic:category,level,word,grammar:r.grammar||"",es,emoji:r.emoji||"📘",ex:r.ex||"",exEs:r.exEs||""});
+      });
+      if(!imported.length){$("importStatus").textContent="No se ha importado nada. Comprueba las columnas y que cada fila tenga lang, level, word y es.";return}
+      const detail=invalid||duplicates?" Se omitirán "+invalid+" filas no válidas y "+duplicates+" duplicadas.":"";
+      if(!confirm("Se van a sustituir las "+vocab.length+" tarjetas actuales por las "+imported.length+" del CSV."+detail+" ¿Continuar?"))return;
+      const previous=vocab;vocab=imported;
+      try{persistVocabulary()}catch(e){vocab=previous;$("importStatus").textContent="No se ha podido guardar: el almacenamiento del navegador puede estar lleno.";return}
+      state.seen={};state.known={};save();refreshTopicOptions();$("topic").value="all";refreshDeck();updateStats();
+      $("importStatus").textContent="Importación terminada: "+imported.length+" tarjetas cargadas. "+invalid+" filas no válidas y "+duplicates+" duplicadas omitidas.";
+    }catch(e){$("importStatus").textContent="No se ha podido leer el CSV. Comprueba sus encabezados y vuelve a intentarlo."}
+  };
+  reader.onerror=()=>{$("importStatus").textContent="No se ha podido leer el archivo."};
+  reader.readAsText(file,"UTF-8");
+}
+const $=id=>document.getElementById(id);
+let mode="cards",deck=[],index=0,revealed=false,readCurrent=null,writeCurrent=null,speakCurrent=null;
+let state=loadState();
+function loadState(){try{return JSON.parse(localStorage.getItem("linguacards_state_v1"))||{seen:{},known:{},attempts:0,correct:0,streak:0}}catch(e){return{seen:{},known:{},attempts:0,correct:0,streak:0}}}
+function save(){localStorage.setItem("linguacards_state_v1",JSON.stringify(state));updateStats()}
+function key(item){return item.lang+"|"+item.word}
+function current(){return deck[index]||deck[0]}
+function getDeck(){let lang=$("language").value,topic=$("topic").value,level=$("level").value;return vocab.filter(v=>v.lang===lang&&(topic==="all"||v.topic===topic)&&(level==="all"||v.level===level))}
+function inverse(){return $("direction").value==="inverse"}
+function promptFor(v){return inverse()?v.es:v.word}
+function answerFor(v){return inverse()?v.word:v.es}
+function speechTarget(v){return v.word}
+function refreshDeck(){deck=getDeck();index=0;revealed=false;if(!deck.length){$("word").textContent="No hay tarjetas";$("grammar").textContent="";$("translationArea").classList.add("hidden");$("emoji").textContent="📚";$("counter").textContent="0 / 0";return}renderCard();makeReading();makeWriting();makeSpeaking()}
+function renderCard(){let v=current();if(!v)return;$("emoji").textContent=v.emoji;$("word").textContent=promptFor(v);$("grammar").textContent=inverse()?"Traduce al idioma seleccionado":"Nivel "+v.level+" · "+v.grammar;$("translation").textContent=answerFor(v);$("example").innerHTML=v.ex+" <strong>"+v.exEs+"</strong>";$("counter").textContent=(index+1)+" / "+deck.length;$("topicPill").textContent=topicName(v.topic);$("translationArea").classList.toggle("hidden",!revealed);$("reveal").textContent=revealed?"Ocultar significado":"Mostrar significado";$("rateActions").style.display=revealed?"flex":"none";state.seen[key(v)]=true;save()}
+function topicName(t){
+  const labels={food:"Comida",travel:"Viajes",home:"Casa",daily:"Vida cotidiana",nature:"Naturaleza",people:"Personas y familia",personal:"Vocabulario personal",general:"General"};
+  return labels[t]||String(t||"General").replace(/[_-]+/g," ").replace(/\b\w/g,c=>c.toUpperCase());
+}
+function refreshTopicOptions(){
+  const select=$("topic"),previous=select.value;
+  const categories=[...new Set(vocab.map(v=>v.topic||v.category||"general"))].sort((a,b)=>a.localeCompare(b,"es"));
+  select.innerHTML="";const all=document.createElement("option");all.value="all";all.textContent="Todos los temas";select.appendChild(all);
+  categories.forEach(cat=>{const opt=document.createElement("option");opt.value=cat;opt.textContent=topicName(cat);select.appendChild(opt)});
+  select.value=categories.includes(previous)?previous:"all";
+}
+function markKnown(yes){let v=current();if(!v)return;if(yes)state.known[key(v)]=true;else delete state.known[key(v)];save();nextCard()}
+function nextCard(){if(!deck.length)return;index=(index+1)%deck.length;revealed=false;renderCard()}
+function prevCard(){if(!deck.length)return;index=(index-1+deck.length)%deck.length;revealed=false;renderCard()}
+function updateStats(){let seen=Object.keys(state.seen||{}).length,known=Object.keys(state.known||{}).length,score=state.attempts?Math.round(state.correct/state.attempts*100):0;$("seenStat").textContent=seen;$("knownStat").textContent=known;$("scoreStat").textContent=score+"%";$("streakStat").textContent=state.streak||0;let pct=Math.min(100,Math.round(known/Math.max(1,vocab.length)*100));$("progressBar").style.width=pct+"%";$("progressText").textContent=known+" de "+vocab.length+" palabras marcadas como aprendidas."}
+function shuffle(a){return [...a].sort(()=>Math.random()-.5)}
+function pickDifferent(v){let opts=shuffle(deck.filter(x=>x.word!==v.word));let result=[v,...opts.slice(0,3)];return shuffle(result)}
+function makeReading(){if(!deck.length)return;readCurrent=deck[Math.floor(Math.random()*deck.length)];$("readQuestion").textContent=promptFor(readCurrent);$("readFeedback").textContent="";$("readChoices").innerHTML="";pickDifferent(readCurrent).forEach(v=>{let b=document.createElement("button");b.className="choice";b.textContent=answerFor(v);b.onclick=()=>{if(b.dataset.done)return;[...$("readChoices").children].forEach(x=>x.dataset.done="1");const ok=v===readCurrent;answerResult(ok);$("readFeedback").textContent=ok?"¡Muy bien! ✓":"La respuesta era: "+answerFor(readCurrent);$("readFeedback").style.color=ok?"var(--green)":"var(--red)"};$("readChoices").appendChild(b)})}
+function makeWriting(){if(!deck.length)return;writeCurrent=deck[Math.floor(Math.random()*deck.length)];$("writingIntro").textContent=inverse()?"Escribe la traducción en el idioma seleccionado.":"Escribe en español el significado de la palabra o frase.";$("writeQuestion").textContent=promptFor(writeCurrent);$("writeAnswer").placeholder=inverse()?"Escribe la palabra o expresión en el idioma elegido…":"Escribe en español…";$("writeAnswer").value="";$("writeFeedback").textContent="";$("writeAnswer").disabled=false;if(mode==="writing"&&document.activeElement.tagName!=="SELECT")$("writeAnswer").focus()}
+function normalize(s){return s.toLocaleLowerCase("es").normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[¿?¡!.,;]/g,"").trim()}
+function checkWriting(){if(!writeCurrent)return;let answer=normalize($("writeAnswer").value);if(!answer)return;$("writeAnswer").disabled=true;let expected=answerFor(writeCurrent);let correct=normalize(expected);let ok=answer===correct||answer===normalize(expected.replace(/^(el |la |los |las )/,""));answerResult(ok);$("writeFeedback").textContent=ok?"¡Exacto! ✓":"La traducción esperada es: "+expected;$("writeFeedback").style.color=ok?"var(--green)":"var(--red)"}
+function answerResult(ok){state.attempts++;if(ok){state.correct++;state.streak++}else state.streak=0;save()}
+/* ---------- Oral: 5 s para hablar, respuesta 2 s y siguiente ---------- */
+const SPEAK_TIMEOUT_MS=5000,SPEAK_HOLD_MS=2000;
+let speakRec=null,speakBusy=false,speakTimers={tick:null,hold:null};
+function clearSpeakTimers(){clearInterval(speakTimers.tick);clearTimeout(speakTimers.hold);speakTimers.tick=speakTimers.hold=null}
+function detachRec(){const r=speakRec;speakRec=null;if(r){r.onstart=r.onaudiostart=r.onspeechstart=r.onresult=r.onerror=r.onend=null;try{r.abort()}catch(e){}}}
+function setRecordButton(listening){const b=$("speakRecord");b.disabled=listening||speakBusy;b.textContent=listening?"🎙️ Escuchando…":"🎙️ Hablar ahora"}
+function stopListening(){clearSpeakTimers();detachRec();speakBusy=false;setRecordButton(false)}
+function makeSpeaking(){
+  stopListening();
+  if(!deck.length)return;
+  speakCurrent=deck[Math.floor(Math.random()*deck.length)];
+  $("speakQuestion").textContent=inverse()?speakCurrent.es:speakCurrent.word;
+  $("speakFeedback").style.color="";
+  $("speakFeedback").textContent=inverse()?"Traduce mentalmente y di la expresión en el idioma elegido.":"Pulsa «Escuchar modelo» o «Hablar ahora» (Espacio).";
+  $("transcript").textContent="";
+}
+function finishSpeaking(ok,heard,reason){
+  clearSpeakTimers();detachRec();
+  speakBusy=true;setRecordButton(false);
+  answerResult(ok);
+  const v=speakCurrent,fb=$("speakFeedback");
+  const head=ok?"¡Muy bien! ✓":reason==="timeout"?"Tiempo agotado: no has hablado en 5 s ✗":reason==="unrecognized"?"No he podido entenderte ✗":"No era exacto ✗";
+  fb.style.color=ok?"var(--green)":"var(--red)";
+  fb.textContent=head+" Respuesta: "+v.word+" · "+v.es;
+  $("transcript").textContent=heard?"Te he entendido: “"+heard+"”":"";
+  speakTimers.hold=setTimeout(()=>{speakBusy=false;makeSpeaking()},SPEAK_HOLD_MS);
+}
+function recordSpeech(){
+  if(speakBusy||speakRec||!speakCurrent)return;
+  const SR=window.SpeechRecognition||window.webkitSpeechRecognition,fb=$("speakFeedback");
+  if(!SR){fb.style.color="";fb.textContent="El reconocimiento de voz no está disponible en este navegador. Puedes escuchar el modelo y repetirlo en voz alta.";return}
+  const rec=new SR();speakRec=rec;
+  rec.lang={de:"de-DE",en:"en-GB",it:"it-IT"}[$("language").value];
+  rec.interimResults=false;rec.continuous=false;rec.maxAlternatives=3;
+  let heardSpeech=false;
+  fb.style.color="";fb.textContent="Preparando el micrófono…";$("transcript").textContent="";
+  setRecordButton(true);
+  const beginCountdown=()=>{
+    if(speakTimers.tick||speakRec!==rec)return;
+    const t0=Date.now();
+    const render=()=>{const left=Math.max(0,Math.ceil((SPEAK_TIMEOUT_MS-(Date.now()-t0))/1000));fb.textContent="Te escucho… tienes "+left+" s para empezar a hablar"};
+    render();
+    speakTimers.tick=setInterval(()=>{
+      if(heardSpeech||speakRec!==rec){clearInterval(speakTimers.tick);speakTimers.tick=null;return}
+      if(Date.now()-t0>=SPEAK_TIMEOUT_MS){finishSpeaking(false,"","timeout");return}
+      render();
+    },200);
+  };
+  rec.onstart=beginCountdown;rec.onaudiostart=beginCountdown;
+  rec.onspeechstart=()=>{if(speakRec!==rec)return;heardSpeech=true;clearInterval(speakTimers.tick);speakTimers.tick=null;fb.textContent="Te escucho…"};
+  rec.onresult=e=>{
+    if(speakRec!==rec)return;
+    const alts=Array.from(e.results[0]).map(a=>a.transcript);
+    const target=normalize(speakCurrent.word);
+    finishSpeaking(alts.some(a=>normalize(a)===target),alts[0],"answer");
+  };
+  rec.onerror=e=>{
+    if(speakRec!==rec)return;
+    if(e.error==="no-speech"){finishSpeaking(false,"","timeout");return}
+    if(e.error==="aborted")return;
+    stopListening();
+    fb.style.color="var(--red)";
+    fb.textContent=(e.error==="not-allowed"||e.error==="service-not-allowed")?"No hay permiso para usar el micrófono. Puedes activarlo en los ajustes del navegador.":"No he podido reconocer la voz. Inténtalo de nuevo o usa la escucha.";
+  };
+  rec.onend=()=>{if(speakRec!==rec)return;finishSpeaking(false,"",heardSpeech?"unrecognized":"timeout")};
+  try{rec.start()}catch(err){stopListening();fb.style.color="";fb.textContent="No se ha podido iniciar el micrófono. Espera un momento y vuelve a intentarlo."}
+}
+function speak(text){if(!("speechSynthesis"in window)){$("speakFeedback").textContent="Este navegador no dispone de lectura de voz.";return}speechSynthesis.cancel();let u=new SpeechSynthesisUtterance(text);u.lang={de:"de-DE",en:"en-GB",it:"it-IT"}[$("language").value];u.rate=.88;let voices=speechSynthesis.getVoices();let voice=voices.find(v=>v.lang.toLowerCase().startsWith(u.lang.slice(0,2)));if(voice)u.voice=voice;speechSynthesis.speak(u)}
+document.querySelectorAll(".tab").forEach(b=>b.addEventListener("click",()=>{stopListening();mode=b.dataset.mode;document.querySelectorAll(".tab").forEach(x=>x.classList.toggle("active",x===b));document.querySelectorAll(".mode").forEach(x=>x.classList.toggle("active",x.id===mode));if(mode==="reading")makeReading();if(mode==="writing")makeWriting();if(mode==="speaking")makeSpeaking()}));
+$("language").addEventListener("change",refreshDeck);$("topic").addEventListener("change",refreshDeck);$("level").addEventListener("change",refreshDeck);$("direction").addEventListener("change",refreshDeck);
+$("reveal").onclick=()=>{revealed=!revealed;renderCard()};$("known").onclick=()=>markKnown(true);$("review").onclick=()=>markKnown(false);$("next").onclick=nextCard;$("prev").onclick=prevCard;$("listenCard").onclick=()=>{if(current())speak(current().word)};
+$("readNext").onclick=makeReading;$("checkWrite").onclick=checkWriting;$("writeAnswer").addEventListener("keydown",e=>{if(e.key==="Enter")checkWriting()});$("writeNext").onclick=makeWriting;
+$("speakListen").onclick=()=>{if(speakCurrent)speak(speechTarget(speakCurrent))};$("speakRecord").onclick=recordSpeech;$("speakNext").onclick=makeSpeaking;
+$("resetProgress").onclick=()=>{if(confirm("¿Quieres borrar el progreso guardado en este navegador?")){state={seen:{},known:{},attempts:0,correct:0,streak:0};save();renderCard()}};
+$("learner").value=localStorage.getItem("linguacards_name")||"";$("learner").addEventListener("input",e=>localStorage.setItem("linguacards_name",e.target.value));
+$("exportCsv").addEventListener("click",exportVocabularyCsv);
+$("importCsv").addEventListener("click",()=>$("importFile").click());
+$("importFile").addEventListener("change",e=>{const file=e.target.files&&e.target.files[0];if(file)importCsvFile(file);e.target.value=""});
+
+/* ---------- Atajos de teclado ---------- */
+["language","topic","level","direction"].forEach(id=>$(id).addEventListener("change",()=>$(id).blur()));
+document.addEventListener("click",e=>{const b=e.target.closest&&e.target.closest("button");if(b&&e.detail>0)b.blur()});
+document.addEventListener("keydown",e=>{
+  if(e.ctrlKey||e.metaKey||e.altKey||e.isComposing)return;
+  const t=e.target,tag=t&&t.tagName,k=e.key;
+  if(t===$("writeAnswer")){if(k==="Escape")t.blur();return}
+  if(tag==="INPUT"||tag==="SELECT"||tag==="TEXTAREA")return;
+  if(e.shiftKey&&/^Digit[1-4]$/.test(e.code)){e.preventDefault();document.querySelector('.tab[data-mode="'+["cards","reading","writing","speaking"][+e.code.slice(5)-1]+'"]').click();return}
+  const act=k===" "||k==="Enter";
+  if(tag==="BUTTON"&&act)return;
+  if(mode==="cards"){
+    if(!deck.length)return;
+    if(act){e.preventDefault();$("reveal").click()}
+    else if(k==="ArrowRight"){e.preventDefault();nextCard()}
+    else if(k==="ArrowLeft"){e.preventDefault();prevCard()}
+    else if(revealed&&(k==="ArrowUp"||k==="s"||k==="S")){e.preventDefault();markKnown(true)}
+    else if(revealed&&(k==="ArrowDown"||k==="r"||k==="R")){e.preventDefault();markKnown(false)}
+    else if(k==="l"||k==="L"){if(current())speak(current().word)}
+  }else if(mode==="reading"){
+    if(/^[1-4]$/.test(k)){const c=$("readChoices").children[+k-1];if(c)c.click()}
+    else if(act||k==="ArrowRight"){e.preventDefault();makeReading()}
+  }else if(mode==="writing"){
+    if($("writeAnswer").disabled){if(act||k==="ArrowRight"){e.preventDefault();makeWriting()}}
+    else if(act){e.preventDefault();$("writeAnswer").focus()}
+    else if(k==="ArrowRight"){e.preventDefault();makeWriting()}
+  }else if(mode==="speaking"){
+    if(act){e.preventDefault();recordSpeech()}
+    else if(k==="l"||k==="L"){if(speakCurrent&&!speakBusy)speak(speechTarget(speakCurrent))}
+    else if(k==="ArrowRight"){e.preventDefault();makeSpeaking()}
+    else if(k==="Escape"&&speakRec){stopListening();$("speakFeedback").style.color="";$("speakFeedback").textContent="Escucha cancelada."}
+  }
+});
+refreshTopicOptions();refreshDeck();updateStats();
+</script>
+</body>
+</html>
